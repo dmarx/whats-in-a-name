@@ -1,0 +1,155 @@
+{
+  "3": {
+    "inputs": {
+      "seed": 930292204097952,
+      "steps": 18,
+      "cfg": 5,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "67",
+        0
+      ],
+      "positive": [
+        "157",
+        0
+      ],
+      "negative": [
+        "157",
+        1
+      ],
+      "latent_image": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "KSampler"
+  },
+  "4": {
+    "inputs": {
+      "ckpt_name": "CyberRealistic_/cyberrealistic_v31.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple"
+  },
+  "5": {
+    "inputs": {
+      "width": 576,
+      "height": 576,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage"
+  },
+  "8": {
+    "inputs": {
+      "samples": [
+        "3",
+        0
+      ],
+      "vae": [
+        "4",
+        2
+      ]
+    },
+    "class_type": "VAEDecode"
+  },
+  "27": {
+    "inputs": {
+      "text": "hat, drawing, nude, nsfw, text, watermark, mutated, deformed, grotesque, confusing, retarded, amputee stump, asian, strong legs, anorexic, detached limb, extra limbs, anal, weird legs, trap, polydactyl, prolapsed, jowls",
+      "clip": [
+        "59",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "54": {
+    "inputs": {
+      "text": "doris day",
+      "clip": [
+        "59",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "59": {
+    "inputs": {
+      "stop_at_clip_layer": -1,
+      "clip": [
+        "4",
+        1
+      ]
+    },
+    "class_type": "CLIPSetLastLayer"
+  },
+  "67": {
+    "inputs": {
+      "b1": 1,
+      "b2": 1,
+      "s1": 1,
+      "s2": 1,
+      "model": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "FreeU"
+  },
+  "156": {
+    "inputs": {
+      "control_net_name": "control_v11f1p_sd15_openpose.pth"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "157": {
+    "inputs": {
+      "strength": 0.7000000000000001,
+      "start_percent": 0,
+      "end_percent": 1,
+      "positive": [
+        "54",
+        0
+      ],
+      "negative": [
+        "27",
+        0
+      ],
+      "control_net": [
+        "156",
+        0
+      ],
+      "image": [
+        "351",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced"
+  },
+  "190": {
+    "inputs": {
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "236": {
+    "inputs": {
+      "images": [
+        "351",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "351": {
+    "inputs": {
+      "image": "ComfyUI_OpenPose_351.png",
+      "": "{\n    \"width\": 512,\n    \"height\": 512,\n    \"keypoints\": [\n        [\n            [\n                255.85576111998566,\n                378.53243233735566\n            ],\n            [\n                255.85576111998566,\n                650.1163954759126\n            ],\n            [\n                -59.93954485508036,\n                637.4845832369099\n            ],\n            [\n                -148.36223052809888,\n                1048.0184810044957\n            ],\n            [\n                -236.7849162011174,\n                1483.8160032500869\n            ],\n            [\n                615.8624099315609,\n                637.4845832369099\n            ],\n            [\n                735.8646262020861,\n                1041.7025748849944\n            ],\n            [\n                830.6032179946059,\n                1439.6046604135777\n            ],\n            [\n                154.80126320796455,\n                1414.3410359355723\n            ],\n            [\n                79.01038977394867,\n                2159.6179580367284\n            ],\n            [\n                91.64220201295134,\n                2759.6290393893537\n            ],\n            [\n                439.0170385855239,\n                1408.025129816071\n            ],\n            [\n                514.8079120195398,\n                2165.93386415623\n            ],\n            [\n                540.0715364975451,\n                2772.2608516283562\n            ],\n            [\n                164.92640176809707,\n                230.75991790995536\n            ],\n            [\n                297.56043027762485,\n                237.0758240294564\n            ],\n            [\n                154.80126320796455,\n                334.3210895008465\n            ],\n            [\n                375.8579773905107,\n                346.95290173984904\n            ]\n        ]\n    ]\n}",
+      "open editor": "image"
+    },
+    "class_type": "Nui.OpenPoseEditor"
+  }
+}

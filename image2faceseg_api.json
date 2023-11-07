@@ -1,0 +1,907 @@
+{
+  "1": {
+    "inputs": {
+      "image": "20181002_112646 copy.jpg",
+      "choose file to upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "8": {
+    "inputs": {
+      "text": "hair",
+      "blur": 7,
+      "threshold": 0.4,
+      "dilation_factor": 4,
+      "image": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "CLIPSeg"
+  },
+  "9": {
+    "inputs": {
+      "images": [
+        "8",
+        1
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "11": {
+    "inputs": {
+      "max_faces": 10,
+      "min_confidence": 0.5,
+      "resolution": 512,
+      "image": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "MediaPipe-FaceMeshPreprocessor"
+  },
+  "12": {
+    "inputs": {
+      "images": [
+        "11",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "16": {
+    "inputs": {
+      "segs": [
+        "24",
+        0
+      ]
+    },
+    "class_type": "SegsToCombinedMask"
+  },
+  "17": {
+    "inputs": {
+      "mask": [
+        "16",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "18": {
+    "inputs": {
+      "images": [
+        "17",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "24": {
+    "inputs": {
+      "crop_factor": 3,
+      "bbox_fill": true,
+      "crop_min_size": 50,
+      "drop_size": 1,
+      "dilation": 0,
+      "face": false,
+      "mouth": true,
+      "left_eyebrow": true,
+      "left_eye": true,
+      "left_pupil": false,
+      "right_eyebrow": true,
+      "right_eye": true,
+      "right_pupil": false,
+      "image": [
+        "11",
+        0
+      ]
+    },
+    "class_type": "MediaPipeFaceMeshToSEGS"
+  },
+  "25": {
+    "inputs": {
+      "segs": [
+        "28",
+        0
+      ]
+    },
+    "class_type": "SegsToCombinedMask"
+  },
+  "26": {
+    "inputs": {
+      "mask": [
+        "25",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "27": {
+    "inputs": {
+      "images": [
+        "26",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "28": {
+    "inputs": {
+      "crop_factor": 3,
+      "bbox_fill": false,
+      "crop_min_size": 50,
+      "drop_size": 1,
+      "dilation": 0,
+      "face": true,
+      "mouth": false,
+      "left_eyebrow": false,
+      "left_eye": false,
+      "left_pupil": false,
+      "right_eyebrow": false,
+      "right_eye": false,
+      "right_pupil": false,
+      "image": [
+        "11",
+        0
+      ]
+    },
+    "class_type": "MediaPipeFaceMeshToSEGS"
+  },
+  "29": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "Prefer GPU"
+    },
+    "class_type": "SAMLoader"
+  },
+  "30": {
+    "inputs": {
+      "detection_hint": "center-1",
+      "dilation": 0,
+      "threshold": 0.93,
+      "bbox_expansion": 0,
+      "mask_hint_threshold": 0.7,
+      "mask_hint_use_negative": "False",
+      "sam_model": [
+        "29",
+        0
+      ],
+      "segs": [
+        "32",
+        0
+      ],
+      "image": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "SAMDetectorCombined"
+  },
+  "32": {
+    "inputs": {
+      "combined": false,
+      "crop_factor": 3,
+      "bbox_fill": false,
+      "drop_size": 10,
+      "mask": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "MaskToSEGS"
+  },
+  "33": {
+    "inputs": {
+      "mask": [
+        "30",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "34": {
+    "inputs": {
+      "images": [
+        "33",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "42": {
+    "inputs": {
+      "mask": [
+        "44",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "43": {
+    "inputs": {
+      "images": [
+        "42",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "44": {
+    "inputs": {
+      "mask1": [
+        "79",
+        0
+      ],
+      "mask2": [
+        "16",
+        0
+      ]
+    },
+    "class_type": "SubtractMask"
+  },
+  "45": {
+    "inputs": {
+      "mask1": [
+        "44",
+        0
+      ],
+      "mask2": [
+        "30",
+        0
+      ]
+    },
+    "class_type": "SubtractMask"
+  },
+  "47": {
+    "inputs": {
+      "mask": [
+        "45",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "48": {
+    "inputs": {
+      "images": [
+        "47",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "50": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "resize_source": false,
+      "destination": [
+        "74",
+        0
+      ],
+      "source": [
+        "1",
+        0
+      ],
+      "mask": [
+        "73",
+        0
+      ]
+    },
+    "class_type": "ImageCompositeMasked"
+  },
+  "52": {
+    "inputs": {
+      "images": [
+        "50",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "53": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "resize_source": true,
+      "destination": [
+        "47",
+        0
+      ],
+      "source": [
+        "1",
+        0
+      ],
+      "mask": [
+        "45",
+        0
+      ]
+    },
+    "class_type": "ImageCompositeMasked"
+  },
+  "55": {
+    "inputs": {
+      "images": [
+        "53",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "56": {
+    "inputs": {
+      "colors": 16,
+      "mode": "Chart",
+      "image": [
+        "53",
+        0
+      ]
+    },
+    "class_type": "Image Color Palette"
+  },
+  "57": {
+    "inputs": {
+      "images": [
+        "56",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "58": {
+    "inputs": {
+      "colors": 16,
+      "mode": "Chart",
+      "image": [
+        "50",
+        0
+      ]
+    },
+    "class_type": "Image Color Palette"
+  },
+  "59": {
+    "inputs": {
+      "images": [
+        "58",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "69": {
+    "inputs": {
+      "mask": [
+        "30",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "72": {
+    "inputs": {
+      "dilation": 50,
+      "mask": [
+        "69",
+        0
+      ]
+    },
+    "class_type": "ImpactDilateMask"
+  },
+  "73": {
+    "inputs": {
+      "mask": [
+        "72",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "74": {
+    "inputs": {
+      "mask": [
+        "73",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "75": {
+    "inputs": {
+      "images": [
+        "74",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "77": {
+    "inputs": {
+      "mask": [
+        "25",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "78": {
+    "inputs": {
+      "dilation": 50,
+      "mask": [
+        "77",
+        0
+      ]
+    },
+    "class_type": "ImpactDilateMask"
+  },
+  "79": {
+    "inputs": {
+      "mask": [
+        "78",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "80": {
+    "inputs": {
+      "mask": [
+        "79",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "81": {
+    "inputs": {
+      "images": [
+        "80",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "82": {
+    "inputs": {
+      "filename_prefix": "maskSkinTone",
+      "images": [
+        "47",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "83": {
+    "inputs": {
+      "filename_prefix": "maskHair",
+      "images": [
+        "74",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "84": {
+    "inputs": {
+      "crop_factor": 3,
+      "bbox_fill": false,
+      "crop_min_size": 50,
+      "drop_size": 1,
+      "dilation": 0,
+      "face": false,
+      "mouth": false,
+      "left_eyebrow": false,
+      "left_eye": false,
+      "left_pupil": true,
+      "right_eyebrow": false,
+      "right_eye": false,
+      "right_pupil": false,
+      "image": [
+        "11",
+        0
+      ]
+    },
+    "class_type": "MediaPipeFaceMeshToSEGS"
+  },
+  "85": {
+    "inputs": {
+      "segs": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "SegsToCombinedMask"
+  },
+  "86": {
+    "inputs": {
+      "dilation": 5,
+      "mask": [
+        "95",
+        0
+      ]
+    },
+    "class_type": "ImpactDilateMask"
+  },
+  "87": {
+    "inputs": {
+      "mask": [
+        "98",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "88": {
+    "inputs": {
+      "images": [
+        "87",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "89": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "resize_source": true,
+      "destination": [
+        "87",
+        0
+      ],
+      "source": [
+        "1",
+        0
+      ],
+      "mask": [
+        "98",
+        0
+      ]
+    },
+    "class_type": "ImageCompositeMasked"
+  },
+  "90": {
+    "inputs": {
+      "images": [
+        "89",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "91": {
+    "inputs": {
+      "colors": 16,
+      "mode": "Chart",
+      "image": [
+        "89",
+        0
+      ]
+    },
+    "class_type": "Image Color Palette"
+  },
+  "92": {
+    "inputs": {
+      "images": [
+        "91",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "93": {
+    "inputs": {
+      "mask": [
+        "85",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "94": {
+    "inputs": {
+      "blur_radius": 2,
+      "sigma": 7,
+      "image": [
+        "93",
+        0
+      ]
+    },
+    "class_type": "ImageBlur"
+  },
+  "95": {
+    "inputs": {
+      "channel": "red",
+      "image": [
+        "101",
+        0
+      ]
+    },
+    "class_type": "ImageToMask"
+  },
+  "96": {
+    "inputs": {
+      "images": [
+        "101",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "97": {
+    "inputs": {
+      "sharpen_radius": 10,
+      "sigma": 2,
+      "alpha": 1,
+      "image": [
+        "94",
+        0
+      ]
+    },
+    "class_type": "ImageSharpen"
+  },
+  "98": {
+    "inputs": {
+      "threshold": 20,
+      "mask": [
+        "99",
+        0
+      ]
+    },
+    "class_type": "ToBinaryMask"
+  },
+  "99": {
+    "inputs": {
+      "dilation": 3,
+      "mask": [
+        "86",
+        0
+      ]
+    },
+    "class_type": "ImpactDilateMask"
+  },
+  "100": {
+    "inputs": {
+      "blur_radius": 2,
+      "sigma": 7,
+      "image": [
+        "97",
+        0
+      ]
+    },
+    "class_type": "ImageBlur"
+  },
+  "101": {
+    "inputs": {
+      "sharpen_radius": 10,
+      "sigma": 2,
+      "alpha": 1,
+      "image": [
+        "100",
+        0
+      ]
+    },
+    "class_type": "ImageSharpen"
+  },
+  "105": {
+    "inputs": {
+      "crop_factor": 3,
+      "bbox_fill": false,
+      "crop_min_size": 50,
+      "drop_size": 1,
+      "dilation": 0,
+      "face": false,
+      "mouth": false,
+      "left_eyebrow": false,
+      "left_eye": false,
+      "left_pupil": false,
+      "right_eyebrow": false,
+      "right_eye": false,
+      "right_pupil": true,
+      "image": [
+        "11",
+        0
+      ]
+    },
+    "class_type": "MediaPipeFaceMeshToSEGS"
+  },
+  "106": {
+    "inputs": {
+      "segs": [
+        "105",
+        0
+      ]
+    },
+    "class_type": "SegsToCombinedMask"
+  },
+  "107": {
+    "inputs": {
+      "dilation": 5,
+      "mask": [
+        "116",
+        0
+      ]
+    },
+    "class_type": "ImpactDilateMask"
+  },
+  "108": {
+    "inputs": {
+      "mask": [
+        "119",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "109": {
+    "inputs": {
+      "images": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "110": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "resize_source": true,
+      "destination": [
+        "108",
+        0
+      ],
+      "source": [
+        "1",
+        0
+      ],
+      "mask": [
+        "119",
+        0
+      ]
+    },
+    "class_type": "ImageCompositeMasked"
+  },
+  "111": {
+    "inputs": {
+      "images": [
+        "110",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "112": {
+    "inputs": {
+      "colors": 16,
+      "mode": "Chart",
+      "image": [
+        "110",
+        0
+      ]
+    },
+    "class_type": "Image Color Palette"
+  },
+  "113": {
+    "inputs": {
+      "images": [
+        "112",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "114": {
+    "inputs": {
+      "mask": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "115": {
+    "inputs": {
+      "blur_radius": 2,
+      "sigma": 7,
+      "image": [
+        "114",
+        0
+      ]
+    },
+    "class_type": "ImageBlur"
+  },
+  "116": {
+    "inputs": {
+      "channel": "red",
+      "image": [
+        "122",
+        0
+      ]
+    },
+    "class_type": "ImageToMask"
+  },
+  "117": {
+    "inputs": {
+      "images": [
+        "122",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "118": {
+    "inputs": {
+      "sharpen_radius": 10,
+      "sigma": 2,
+      "alpha": 1,
+      "image": [
+        "115",
+        0
+      ]
+    },
+    "class_type": "ImageSharpen"
+  },
+  "119": {
+    "inputs": {
+      "threshold": 20,
+      "mask": [
+        "120",
+        0
+      ]
+    },
+    "class_type": "ToBinaryMask"
+  },
+  "120": {
+    "inputs": {
+      "dilation": 3,
+      "mask": [
+        "107",
+        0
+      ]
+    },
+    "class_type": "ImpactDilateMask"
+  },
+  "121": {
+    "inputs": {
+      "blur_radius": 2,
+      "sigma": 7,
+      "image": [
+        "118",
+        0
+      ]
+    },
+    "class_type": "ImageBlur"
+  },
+  "122": {
+    "inputs": {
+      "sharpen_radius": 10,
+      "sigma": 2,
+      "alpha": 1,
+      "image": [
+        "121",
+        0
+      ]
+    },
+    "class_type": "ImageSharpen"
+  },
+  "126": {
+    "inputs": {
+      "filename_prefix": "maskEyeIrisLeft",
+      "images": [
+        "87",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "127": {
+    "inputs": {
+      "filename_prefix": "maskEyeIrisRight",
+      "images": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  }
+}
